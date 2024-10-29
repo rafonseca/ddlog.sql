@@ -11,7 +11,7 @@ create table if not exists ddlog.ddlog (
        sql text not null,
        context json,
        output text,
-       success bool default true
+       success bool
 );
 
 -- The basic idea is to save in the target DB every data definition
