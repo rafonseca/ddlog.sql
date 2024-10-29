@@ -65,3 +65,7 @@ create policy do_not_delete_marked on ddlog.ddlog
 create policy do_not_update_marked on ddlog.ddlog
        as restrictive for update
        using (success is  null);
+
+-- WARNING: from the docs, "Superusers and roles with the BYPASSRLS
+-- attribute always bypass the row security system when accessing a
+-- table"
