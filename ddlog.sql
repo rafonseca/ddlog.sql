@@ -6,7 +6,7 @@
 create schema if not exists ddlog;
 
 create table if not exists ddlog.ddlog (
-       applied_at timestamptz default now(),
+       applied_at timestamptz default now() unique,
        new_state text,
        sql text not null,
        context json,
