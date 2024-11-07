@@ -3,6 +3,7 @@
 -- This thing aspires to provide a unified standard for different
 -- migration tools. It is used only to keep track of data definition
 -- changes in the scope of its own DB.
+begin;
 create schema if not exists ddlog;
 
 create table if not exists ddlog.ddlog (
@@ -56,12 +57,15 @@ alter table ddlog.ddlog enable row level security;
 -- enable for table owner as well
 alter table ddlog.ddlog force row level security; 
 
+drop policy if exists allow_all on ddlog.ddlog;
 create policy allow_all on ddlog.ddlog for all using (true);
 
+drop policy if exists do_not_delete_marked on ddlog.ddlog;
 create policy do_not_delete_marked on ddlog.ddlog
        as restrictive for delete
        using (success is  null);
 
+drop policy if exists do_not_update_marked on ddlog.ddlog;
 create policy do_not_update_marked on ddlog.ddlog
        as restrictive for update
        using (success is  null)
@@ -71,3 +75,4 @@ create policy do_not_update_marked on ddlog.ddlog
 -- WARNING: from the docs, "Superusers and roles with the BYPASSRLS
 -- attribute always bypass the row security system when accessing a
 -- table"
+commit;
