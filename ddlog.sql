@@ -13,6 +13,7 @@ create table if not exists ddlog.ddlog (
        output text,
        success bool
 );
+-- TODO: add revert field
 
 -- The basic idea is to save in the target DB every data definition
 -- script that was executed, together with a timestamp. We save the
